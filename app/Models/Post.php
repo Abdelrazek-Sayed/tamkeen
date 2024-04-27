@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Translatable\HasTranslations;
 
 class Post extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasTranslations;
+
+    public $translatable = [
+        'title',
+        'body',];
 
 
     protected $fillable = [
@@ -53,17 +58,6 @@ class Post extends Model
             return Carbon::parse($this->attributes['created_at'])->format('d M');
         }
     }
-
-//    public function getImageUrlAttribute()
-//    {
-//        if ($this->image) {
-//            if (Storage::exists("images/posts/$post->image")) {
-//                asset("images/posts/$this->image");
-//            } else {
-//                return $this->image;
-//            }
-//        }
-//    }
 
 
     public function getImageUrlAttribute()

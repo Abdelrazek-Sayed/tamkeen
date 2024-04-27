@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use Faker\Factory as Faker;
+
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -17,10 +19,20 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
+
+//        $faker = Faker::create('ar_SA');
         return [
             'user_id' => User::inRandomOrder()->first()->id,
-            'title' => $this->faker->sentence,
-            'body' => $this->faker->paragraph,
+
+            'title' => [
+                'en' => $this->faker->sentence,
+                'ar' => $this->faker->sentence,
+            ],
+            'body' => [
+                'en' => $this->faker->paragraph,
+                'ar' => $this->faker->paragraph,
+            ],
+
             'image' => $this->faker->imageUrl(640, 480, 'animals', true) // Generates random animal images
         ];
     }

@@ -1,7 +1,7 @@
 <div>
     <div class="text-right mt-4 mb-4">
         <x-danger-button wire:click="$dispatch('openModal', { component: 'post-modal' })" class="mb-4">
-            {{ __('create post') }}
+            {{ __('Create Post') }}
         </x-danger-button>
     </div>
     <div class="container">
@@ -41,7 +41,7 @@
                         @endif
 
                         <div class="comment-section">
-                            <h5>Comments</h5>
+                            <h5>{{__('Comments')}}</h5>
                             <div class="mt-6">
                                 @foreach($post->comments as $comment)
                                     <div class="comment">
@@ -49,7 +49,6 @@
                                     </div>
                                 @endforeach
                                 <form wire:submit.prevent="addComment({{ $post->id }})">
-                                    <x-input-label for="body" :value="__('Write Comment')"/>
                                     <div class="flex items-start space-x-2">
                                    <textarea wire:model="content" id="content" placeholder="Write a comment"
                                              class="mt-1 flex-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">

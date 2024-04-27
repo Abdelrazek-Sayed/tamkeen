@@ -3,17 +3,17 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Post;
-use App\Models\Post as PostModel;
 use Illuminate\Support\Facades\File;
-use Illuminate\Validation\Rule;
 use Livewire\Form;
 
 class PostForm extends Form
 {
     public $image;
     public $old_image;
-    public string $title = '';
-    public string $body = '';
+    public string $title_en = '';
+    public string $title_ar = '';
+    public string $body_en = '';
+    public string $body_ar = '';
     public string $image_name = '';
 
 
@@ -22,8 +22,13 @@ class PostForm extends Form
     public function setPost(?Post $post = null): void
     {
         $this->post = $post;
-        $this->title = $post->title;
-        $this->body = $post->body;
+
+        $this->title_en = $this->post->getTranslation('title', 'en');
+        $this->title_ar = $this->post->getTranslation('title', 'ar');
+
+        $this->body_en = $this->post->getTranslation('body', 'en');
+        $this->body_ar = $this->post->getTranslation('body', 'ar');
+
         $this->old_image = $post->image;
     }
 
@@ -65,8 +70,14 @@ class PostForm extends Form
     public function modalData()
     {
         return [
-            'title' => $this->title,
-            'body' => $this->body,
+            'title' => [
+                'en' => $this->title_en,
+                'ar' => $this->title_ar,
+            ],
+            'body' => [
+                'en' => $this->body_en,
+                'ar' => $this->body_ar,
+            ],
             'image' => $this->image_name,
         ];
     }
@@ -74,15 +85,14 @@ class PostForm extends Form
     public function rules(): array
     {
         return [
-            'title' => ['required'],
-            'body' => ['required'],
-//            'image' => [Rule::requiredIf(!$this->post)],
+            'title_en' => ['required'],
+            'title_ar' => ['required'],
+            'body_en' => ['required'],
+            'body_ar' => ['required'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
 
         ];
     }
-
-
-
 
 
 }

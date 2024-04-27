@@ -10,6 +10,8 @@
         "laravel/socialite": "^5.13",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.4",
+        "mcamara/laravel-localization": "^2.0",
+        "spatie/laravel-translatable": "^6.6",
         "wire-elements/modal": "^2.0"
     },
     "require-dev": {

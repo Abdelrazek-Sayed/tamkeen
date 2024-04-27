@@ -30,7 +30,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
-                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ms-1">
@@ -62,6 +62,38 @@
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
+                    </x-slot>
+                </x-dropdown>
+
+                <x-dropdown align="right" width="48">
+                    <x-slot name="trigger">
+                        <button
+                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                            <div>
+                                @if(app()->getLocale() === 'ar')
+                                    العربية
+                                @elseif(app()->getLocale() === 'en')
+                                    English
+                                @endif
+
+                            </div>
+
+
+                        </button>
+                    </x-slot>
+
+                    <x-slot name="content">
+
+                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+
+                            <x-dropdown-link rel="alternate" hreflang="{{ $localeCode }}"
+                                             href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                {{ $properties['native'] }}
+                            </x-dropdown-link>
+
+                        @endforeach
+
+
                     </x-slot>
                 </x-dropdown>
             </div>
